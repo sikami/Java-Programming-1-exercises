@@ -8,8 +8,11 @@ public class Searching {
         // The program below is meant for testing the search algorithms you'll write
         Scanner scanner = new Scanner(System.in);
         ArrayList<Book> books = new ArrayList<>();
+        
         System.out.println("How many books to create?");
+        
         int numberOfBooks = Integer.valueOf(scanner.nextLine());
+        
         for (int i = 0; i < numberOfBooks; i++) {
             books.add(new Book(i, "name for the book " + i));
         }
@@ -44,10 +47,35 @@ public class Searching {
     }
 
     public static int linearSearch(ArrayList<Book> books, int searchedId) {
+        int index = 0;
+        for (Book book : books) {
+            if(searchedId == book.getId()) {
+                return index;
+            }
+            index++;
+        }
         return -1;
     }
 
     public static int binarySearch(ArrayList<Book> books, long searchedId) {
+        int begin = 0;
+        int end = books.size()-1;
+
+        while (begin <= end) {
+            int middle = (begin + end) / 2;
+            
+            if (books.get(middle).getId() == searchedId) {
+                return middle;
+            }
+            
+            if(books.get(middle).getId() < searchedId) {
+                begin = middle + 1;
+            } 
+            
+            if (books.get(middle).getId() > searchedId) {
+                end = middle - 1;
+            } 
+        }
         return -1;
     }
 }
